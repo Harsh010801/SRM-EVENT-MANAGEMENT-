@@ -23,7 +23,7 @@ A modern, full-stack event management platform for SRM University featuring even
 - React 19 + TypeScript
 - Vite (Build tool)
 - TailwindCSS (Styling)
-- Radix UI (Components)
+- Radix UI / shadcn (Components)
 - React Router DOM (Routing)
 
 ### Backend
@@ -31,6 +31,55 @@ A modern, full-stack event management platform for SRM University featuring even
 - JWT Authentication
 - bcryptjs (Password hashing)
 - JSON file storage
+
+## 📁 Project Structure
+
+```
+srm-events-2k26/
+├── frontend/                      # React + Vite frontend
+│   ├── index.html                 # HTML entry point
+│   ├── package.json               # Frontend dependencies
+│   ├── vite.config.ts             # Vite configuration
+│   ├── tailwind.config.js         # Tailwind configuration
+│   ├── tsconfig.json              # TypeScript config
+│   ├── components.json            # shadcn/ui config
+│   ├── public/
+│   │   └── assets/
+│   │       └── images/            # Static images
+│   └── src/
+│       ├── App.tsx                # Main app with routing
+│       ├── main.tsx               # Entry point
+│       ├── components/
+│       │   ├── layout/            # Layout components (Navbar)
+│       │   ├── forms/             # Form components (RegistrationForm)
+│       │   └── ui/                # shadcn UI primitives
+│       ├── contexts/              # React contexts (Auth)
+│       ├── data/                  # Static data (events)
+│       ├── hooks/                 # Custom hooks
+│       ├── lib/                   # Utilities
+│       ├── pages/                 # Route pages (Login)
+│       ├── sections/              # Page sections (Hero, Events, etc.)
+│       ├── services/              # API service layer
+│       └── types/                 # TypeScript type definitions
+│
+├── backend/                       # Express.js backend
+│   ├── package.json               # Backend dependencies
+│   ├── .env.example               # Environment variables template
+│   └── src/
+│       ├── server.js              # Express server entry point
+│       ├── routes/                # API route handlers
+│       │   ├── auth.js            # Authentication routes
+│       │   ├── clubs.js           # Clubs routes
+│       │   ├── events.js          # Events routes
+│       │   └── registrations.js   # Registration routes
+│       └── data/                  # JSON file storage
+│           ├── users.json         # User data
+│           └── registrations.json # Registration data
+│
+├── .gitignore
+├── package.json                   # Root scripts for convenience
+└── README.md
+```
 
 ## 📦 Installation
 
@@ -41,37 +90,52 @@ A modern, full-stack event management platform for SRM University featuring even
 ### Clone and Setup
 
 ```bash
-git clone https://github.com/yourusername/srm-events.git
-cd srm-events
+git clone https://github.com/Harsh010801/srm-events-2k26.git
+cd srm-events-2k26
 ```
 
-### Install Frontend Dependencies
+### Install All Dependencies (from root)
 
 ```bash
-npm install
+npm run install:all
 ```
 
-### Install Backend Dependencies
+Or install individually:
 
 ```bash
-cd server
+# Frontend
+cd frontend
 npm install
-cd ..
+
+# Backend
+cd ../backend
+npm install
 ```
 
 ## 🏃 Running the Project
 
-### Start Backend Server
+### From Root (Convenience Scripts)
 
 ```bash
-cd server
-npm start
+# Start backend server
+npm run dev:backend
+
+# Start frontend dev server (in a new terminal)
+npm run dev:frontend
+```
+
+### Or Directly
+
+```bash
+# Backend (Terminal 1)
+cd backend
+npm run dev
 ```
 Backend runs at `http://localhost:5000`
 
-### Start Frontend (New Terminal)
-
 ```bash
+# Frontend (Terminal 2)
+cd frontend
 npm run dev
 ```
 Frontend runs at `http://localhost:5173`
@@ -83,35 +147,27 @@ Frontend runs at `http://localhost:5173`
 | student@srmist.edu.in | student123 | Student |
 | admin@srmist.edu.in | admin123 | Admin |
 
-## 📁 Project Structure
-
-```
-├── src/                  # React frontend
-│   ├── components/       # UI components
-│   ├── sections/         # Page sections
-│   ├── pages/            # Route pages
-│   ├── contexts/         # React contexts
-│   ├── services/         # API services
-│   └── types/            # TypeScript types
-├── server/               # Express backend
-│   ├── routes/           # API routes
-│   └── data/             # JSON storage
-└── public/               # Static assets
-```
-
 ## 🔌 API Endpoints
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | POST | `/api/auth/register` | User registration |
 | POST | `/api/auth/login` | User login |
+| GET | `/api/auth/me` | Get current user |
 | GET | `/api/events` | Get all events |
+| GET | `/api/events/:id` | Get event by ID |
 | GET | `/api/clubs` | Get all clubs |
 | POST | `/api/registrations` | Event registration |
+| GET | `/api/registrations` | Get registrations |
 
 ## 🛠️ Build for Production
 
 ```bash
+# From root
+npm run build
+
+# Or from frontend directory
+cd frontend
 npm run build
 ```
 

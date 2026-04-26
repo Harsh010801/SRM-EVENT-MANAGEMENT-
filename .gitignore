@@ -1,11 +1,13 @@
 # Dependencies
 node_modules/
+**/node_modules/
 .pnp
 .pnp.js
 
 # Build outputs
 dist/
 build/
+frontend/dist/
 
 # Environment variables
 .env
