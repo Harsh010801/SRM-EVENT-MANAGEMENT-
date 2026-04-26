@@ -199,7 +199,7 @@ export function AdminDashboard() {
   const getCategoryColor = (cat: string) => {
     switch (cat) {
       case 'hackathon': return 'bg-purple-500/20 text-purple-400 border-purple-500/30';
-      case 'technical': return 'bg-blue-500/20 text-blue-400 border-blue-500/30';
+      case 'technical': return 'bg-[#CDFF00]/20 text-[#CDFF00] border-[#CDFF00]/30';
       case 'cultural': return 'bg-pink-500/20 text-pink-400 border-pink-500/30';
       case 'sports': return 'bg-green-500/20 text-green-400 border-green-500/30';
       default: return 'bg-gray-500/20 text-gray-400 border-gray-500/30';
@@ -215,8 +215,8 @@ export function AdminDashboard() {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
-        <Loader2 className="w-8 h-8 text-[#2B71F8] animate-spin" />
+      <div className="min-h-screen bg-[#121212] flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-[#CDFF00] animate-spin" />
       </div>
     );
   }
@@ -224,13 +224,13 @@ export function AdminDashboard() {
   if (!isAuthenticated || user?.role !== 'admin') return null;
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a]">
+    <div className="min-h-screen bg-[#121212]">
       {/* Toast */}
       {toast && (
         <div className={`fixed top-6 right-6 z-[100] flex items-center gap-3 px-5 py-3 rounded-xl border shadow-2xl animate-in slide-in-from-right ${
           toast.type === 'success'
-            ? 'bg-green-500/10 border-green-500/30 text-green-400'
-            : 'bg-red-500/10 border-red-500/30 text-red-400'
+            ? 'bg-green-500/20 border-green-500/30 text-green-400 backdrop-blur-xl'
+            : 'bg-red-500/20 border-red-500/30 text-red-400 backdrop-blur-xl'
         }`}>
           {toast.type === 'success' ? <CheckCircle className="w-5 h-5" /> : <AlertCircle className="w-5 h-5" />}
           {toast.message}
@@ -238,12 +238,12 @@ export function AdminDashboard() {
       )}
 
       {/* Top Bar */}
-      <header className="sticky top-0 z-50 bg-[#0F2557]/90 backdrop-blur-xl border-b border-white/10">
+      <header className="sticky top-0 z-50 bg-[#1A1A1A]/95 backdrop-blur-xl border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link to="/" className="flex items-center gap-2 group">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#2B71F8] to-[#5B9AFF] flex items-center justify-center">
-                <GraduationCap className="w-6 h-6 text-white" />
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#CDFF00] to-[#9EFF00] flex items-center justify-center">
+                <GraduationCap className="w-6 h-6 text-[#1A1A1A]" />
               </div>
             </Link>
             <div>
@@ -253,7 +253,7 @@ export function AdminDashboard() {
           </div>
           <div className="flex items-center gap-3">
             <Link to="/">
-              <Button variant="outline" size="sm" className="border-white/20 text-white hover:bg-white/10">
+              <Button variant="outline" size="sm" className="border-white/10 text-white/70 hover:bg-white/10 hover:text-white">
                 <ArrowLeft className="w-4 h-4 mr-2" /> Back to Site
               </Button>
             </Link>
@@ -273,8 +273,8 @@ export function AdminDashboard() {
               onClick={() => { setActiveTab(tab.id); setSearchQuery(''); }}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all ${
                 activeTab === tab.id
-                  ? 'bg-[#2B71F8] text-white shadow-lg shadow-[#2B71F8]/30'
-                  : 'bg-white/5 text-white/70 hover:bg-white/10'
+                  ? 'bg-[#CDFF00] text-[#1A1A1A] shadow-lg shadow-[#CDFF00]/20'
+                  : 'bg-white/5 text-white/60 hover:bg-white/10 hover:text-white'
               }`}
             >
               <tab.icon className="w-4 h-4" />
@@ -293,11 +293,11 @@ export function AdminDashboard() {
                 placeholder={`Search ${activeTab}...`}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-12 bg-white/5 border-white/10 text-white placeholder:text-white/40 rounded-xl focus:border-[#2B71F8]"
+                className="pl-12 bg-white/5 border-white/10 text-white placeholder:text-white/40 rounded-xl focus:border-[#CDFF00] focus:ring-[#CDFF00]/20"
               />
             </div>
             {activeTab === 'events' && (
-              <Button onClick={handleAddEvent} className="bg-[#2B71F8] hover:bg-[#5B9AFF] text-white rounded-xl">
+              <Button onClick={handleAddEvent} className="bg-[#CDFF00] hover:bg-[#B8E600] text-[#1A1A1A] font-semibold rounded-xl">
                 <Plus className="w-4 h-4 mr-2" /> Add Event
               </Button>
             )}
@@ -307,7 +307,7 @@ export function AdminDashboard() {
         {/* Content */}
         {isLoading ? (
           <div className="flex items-center justify-center py-20">
-            <Loader2 className="w-8 h-8 text-[#2B71F8] animate-spin" />
+            <Loader2 className="w-8 h-8 text-[#CDFF00] animate-spin" />
           </div>
         ) : (
           <>
@@ -316,7 +316,7 @@ export function AdminDashboard() {
               <div className="space-y-4">
                 <p className="text-white/50 text-sm mb-4">{filteredEvents.length} events total</p>
                 {filteredEvents.map(event => (
-                  <div key={event.id} className="bg-white/5 rounded-xl p-5 border border-white/10 hover:border-[#2B71F8]/30 transition-all">
+                  <div key={event.id} className="bg-[#1A1A1A] rounded-xl p-5 border border-white/5 hover:border-[#CDFF00]/30 transition-all">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-3 mb-2">
@@ -330,14 +330,14 @@ export function AdminDashboard() {
                           <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" /> {event.time}</span>
                           <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5" /> {event.venue}</span>
                           <span className="flex items-center gap-1"><Users className="w-3.5 h-3.5" /> {event.registered}/{event.seats}</span>
-                          {event.prizes && <span className="flex items-center gap-1 text-[#FF6B35]"><Trophy className="w-3.5 h-3.5" /> {event.prizes}</span>}
+                          {event.prizes && <span className="flex items-center gap-1 text-[#CDFF00]"><Trophy className="w-3.5 h-3.5" /> {event.prizes}</span>}
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Button size="sm" variant="outline" onClick={() => handleEditEvent(event)} className="border-white/20 text-white hover:bg-white/10">
+                        <Button size="sm" onClick={() => handleEditEvent(event)} className="bg-white/10 text-white/70 hover:bg-[#CDFF00]/20 hover:text-[#CDFF00] border border-white/5 rounded-lg transition-all">
                           <Pencil className="w-4 h-4" />
                         </Button>
-                        <Button size="sm" variant="outline" onClick={() => handleDeleteEvent(event)} className="border-red-500/30 text-red-400 hover:bg-red-500/10">
+                        <Button size="sm" onClick={() => handleDeleteEvent(event)} className="bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/10 rounded-lg transition-all">
                           <Trash2 className="w-4 h-4" />
                         </Button>
                       </div>
@@ -357,7 +357,7 @@ export function AdminDashboard() {
                 <div className="overflow-x-auto">
                   <table className="w-full">
                     <thead>
-                      <tr className="border-b border-white/10">
+                      <tr className="border-b border-white/5">
                         <th className="text-left py-3 px-4 text-white/60 text-sm font-medium">Name</th>
                         <th className="text-left py-3 px-4 text-white/60 text-sm font-medium">Email</th>
                         <th className="text-left py-3 px-4 text-white/60 text-sm font-medium">Reg No.</th>
@@ -395,7 +395,7 @@ export function AdminDashboard() {
                 <div className="overflow-x-auto">
                   <table className="w-full">
                     <thead>
-                      <tr className="border-b border-white/10">
+                      <tr className="border-b border-white/5">
                         <th className="text-left py-3 px-4 text-white/60 text-sm font-medium">Name</th>
                         <th className="text-left py-3 px-4 text-white/60 text-sm font-medium">Email</th>
                         <th className="text-left py-3 px-4 text-white/60 text-sm font-medium">Reg No.</th>
@@ -412,7 +412,7 @@ export function AdminDashboard() {
                           <td className="py-3 px-4 text-white/70 text-sm font-mono">{u.regNumber}</td>
                           <td className="py-3 px-4 text-white/70 text-sm uppercase">{u.department || '—'}</td>
                           <td className="py-3 px-4">
-                            <Badge className={u.role === 'admin' ? 'bg-[#2B71F8]/20 text-[#5B9AFF] border-[#2B71F8]/30' : 'bg-white/10 text-white/70 border-white/20'}>
+                            <Badge className={u.role === 'admin' ? 'bg-[#CDFF00]/20 text-[#5B9AFF] border-[#2B71F8]/30' : 'bg-white/10 text-white/70 border-white/20'}>
                               {u.role}
                             </Badge>
                           </td>
@@ -434,12 +434,12 @@ export function AdminDashboard() {
                 {/* Stats Grid */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {[
-                    { label: 'Total Events', value: events.length, color: 'text-[#2B71F8]' },
+                    { label: 'Total Events', value: events.length, color: 'text-[#CDFF00]' },
                     { label: 'Registrations', value: registrations.length, color: 'text-green-400' },
                     { label: 'Total Users', value: users.length, color: 'text-purple-400' },
-                    { label: 'Total Seats', value: events.reduce((sum, e) => sum + e.seats, 0).toLocaleString(), color: 'text-[#FF6B35]' },
+                    { label: 'Total Seats', value: events.reduce((sum, e) => sum + e.seats, 0).toLocaleString(), color: 'text-[#CDFF00]' },
                   ].map((stat, i) => (
-                    <div key={i} className="bg-white/5 rounded-xl p-6 border border-white/10">
+                    <div key={i} className="bg-[#1A1A1A] rounded-xl p-6 border border-white/10">
                       <p className="text-white/50 text-sm mb-1">{stat.label}</p>
                       <p className={`text-3xl font-bold ${stat.color}`}>{stat.value}</p>
                     </div>
@@ -447,7 +447,7 @@ export function AdminDashboard() {
                 </div>
 
                 {/* Events by Category */}
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <div className="bg-[#1A1A1A] rounded-xl p-6 border border-white/10">
                   <h3 className="text-white font-semibold mb-4">Events by Category</h3>
                   <div className="space-y-3">
                     {['technical', 'hackathon', 'cultural', 'sports'].map(cat => {
@@ -460,7 +460,7 @@ export function AdminDashboard() {
                             <span className="text-white/50">{count} events</span>
                           </div>
                           <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                            <div className="h-full bg-gradient-to-r from-[#2B71F8] to-[#5B9AFF] rounded-full transition-all duration-700" style={{ width: `${pct}%` }} />
+                            <div className="h-full bg-gradient-to-r from-[#CDFF00] to-[#9EFF00] rounded-full transition-all duration-700" style={{ width: `${pct}%` }} />
                           </div>
                         </div>
                       );
@@ -469,7 +469,7 @@ export function AdminDashboard() {
                 </div>
 
                 {/* Recent Registrations */}
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <div className="bg-[#1A1A1A] rounded-xl p-6 border border-white/10">
                   <h3 className="text-white font-semibold mb-4">Recent Registrations</h3>
                   <div className="space-y-3">
                     {registrations.slice(-5).reverse().map(reg => (
@@ -492,7 +492,7 @@ export function AdminDashboard() {
 
       {/* Add/Edit Event Dialog */}
       <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
-        <DialogContent className="max-w-2xl bg-[#0F2557]/95 backdrop-blur-xl border border-white/10 text-white max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl bg-[#1A1A1A] border border-white/10 text-white max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold text-white">
               {editingEvent ? 'Edit Event' : 'Add New Event'}
@@ -505,28 +505,28 @@ export function AdminDashboard() {
           <form onSubmit={handleSaveEvent} className="space-y-4 mt-4">
             <div className="space-y-2">
               <Label className="text-white/60">Title</Label>
-              <Input value={formData.title} onChange={(e) => setFormData(p => ({ ...p, title: e.target.value }))} required className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-[#2B71F8]" placeholder="Event title" />
+              <Input value={formData.title} onChange={(e) => setFormData(p => ({ ...p, title: e.target.value }))} required className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-[#CDFF00]" placeholder="Event title" />
             </div>
 
             <div className="space-y-2">
               <Label className="text-white/60">Description</Label>
-              <textarea value={formData.description} onChange={(e) => setFormData(p => ({ ...p, description: e.target.value }))} required className="w-full min-h-[80px] px-3 py-2 rounded-md bg-white/5 border border-white/10 text-white placeholder:text-white/30 focus:border-[#2B71F8] focus:outline-none focus:ring-1 focus:ring-[#2B71F8]/20 resize-none" placeholder="Event description" />
+              <textarea value={formData.description} onChange={(e) => setFormData(p => ({ ...p, description: e.target.value }))} required className="w-full min-h-[80px] px-3 py-2 rounded-md bg-white/5 border border-white/10 text-white placeholder:text-white/30 focus:border-[#CDFF00] focus:outline-none focus:ring-1 focus:ring-[#2B71F8]/20 resize-none" placeholder="Event description" />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label className="text-white/60">Date</Label>
-                <Input type="date" value={formData.date} onChange={(e) => setFormData(p => ({ ...p, date: e.target.value }))} required className="bg-white/5 border-white/10 text-white focus:border-[#2B71F8]" />
+                <Input type="date" value={formData.date} onChange={(e) => setFormData(p => ({ ...p, date: e.target.value }))} required className="bg-white/5 border-white/10 text-white focus:border-[#CDFF00]" />
               </div>
               <div className="space-y-2">
                 <Label className="text-white/60">Time</Label>
-                <Input value={formData.time} onChange={(e) => setFormData(p => ({ ...p, time: e.target.value }))} required className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-[#2B71F8]" placeholder="09:00 AM" />
+                <Input value={formData.time} onChange={(e) => setFormData(p => ({ ...p, time: e.target.value }))} required className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-[#CDFF00]" placeholder="09:00 AM" />
               </div>
             </div>
 
             <div className="space-y-2">
               <Label className="text-white/60">Venue</Label>
-              <Input value={formData.venue} onChange={(e) => setFormData(p => ({ ...p, venue: e.target.value }))} required className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-[#2B71F8]" placeholder="Tech Park, Kattankulathur" />
+              <Input value={formData.venue} onChange={(e) => setFormData(p => ({ ...p, venue: e.target.value }))} required className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-[#CDFF00]" placeholder="Tech Park, Kattankulathur" />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
@@ -534,7 +534,7 @@ export function AdminDashboard() {
                 <Label className="text-white/60">Category</Label>
                 <Select value={formData.category} onValueChange={(val) => setFormData(p => ({ ...p, category: val }))}>
                   <SelectTrigger className="bg-white/5 border-white/10 text-white"><SelectValue /></SelectTrigger>
-                  <SelectContent className="bg-[#0F2557] border-white/10">
+                  <SelectContent className="bg-[#1A1A1A] border-white/10">
                     <SelectItem value="technical">Technical</SelectItem>
                     <SelectItem value="hackathon">Hackathon</SelectItem>
                     <SelectItem value="cultural">Cultural</SelectItem>
@@ -544,18 +544,18 @@ export function AdminDashboard() {
               </div>
               <div className="space-y-2">
                 <Label className="text-white/60">Seats</Label>
-                <Input type="number" value={formData.seats} onChange={(e) => setFormData(p => ({ ...p, seats: parseInt(e.target.value) || 0 }))} className="bg-white/5 border-white/10 text-white focus:border-[#2B71F8]" />
+                <Input type="number" value={formData.seats} onChange={(e) => setFormData(p => ({ ...p, seats: parseInt(e.target.value) || 0 }))} className="bg-white/5 border-white/10 text-white focus:border-[#CDFF00]" />
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label className="text-white/60">Prizes (optional)</Label>
-                <Input value={formData.prizes} onChange={(e) => setFormData(p => ({ ...p, prizes: e.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-[#2B71F8]" placeholder="₹1,00,000" />
+                <Input value={formData.prizes} onChange={(e) => setFormData(p => ({ ...p, prizes: e.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-[#CDFF00]" placeholder="Rs.1,00,000" />
               </div>
               <div className="space-y-2">
                 <Label className="text-white/60">Team Size</Label>
-                <Input value={formData.teamSize} onChange={(e) => setFormData(p => ({ ...p, teamSize: e.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-[#2B71F8]" placeholder="2-4 members" />
+                <Input value={formData.teamSize} onChange={(e) => setFormData(p => ({ ...p, teamSize: e.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-[#CDFF00]" placeholder="2-4 members" />
               </div>
             </div>
 
@@ -563,21 +563,31 @@ export function AdminDashboard() {
               <Label className="text-white/60">Image</Label>
               <Select value={formData.image} onValueChange={(val) => setFormData(p => ({ ...p, image: val }))}>
                 <SelectTrigger className="bg-white/5 border-white/10 text-white"><SelectValue /></SelectTrigger>
-                <SelectContent className="bg-[#0F2557] border-white/10">
-                  <SelectItem value="/assets/images/event-ai.jpg">AI / Tech</SelectItem>
-                  <SelectItem value="/assets/images/event-coding.jpg">Coding</SelectItem>
-                  <SelectItem value="/assets/images/event-robotics.jpg">Robotics</SelectItem>
-                  <SelectItem value="/assets/images/event-cultural.jpg">Cultural</SelectItem>
-                  <SelectItem value="/assets/images/hackathon-featured.jpg">Hackathon</SelectItem>
+                <SelectContent className="bg-[#1A1A1A] border-white/10">
+                  <SelectItem value="/assets/images/event-techfest.png">Tech Fest</SelectItem>
+                  <SelectItem value="/assets/images/event-hackathon.png">Hackathon</SelectItem>
+                  <SelectItem value="/assets/images/event-cybersecurity.png">Cybersecurity</SelectItem>
+                  <SelectItem value="/assets/images/event-iot.png">IoT / Electronics</SelectItem>
+                  <SelectItem value="/assets/images/event-ai-health.png">AI / Healthcare</SelectItem>
+                  <SelectItem value="/assets/images/event-robotics-new.png">Robotics</SelectItem>
+                  <SelectItem value="/assets/images/event-cultural-fest.png">Cultural Fest</SelectItem>
+                  <SelectItem value="/assets/images/event-sports.png">Sports</SelectItem>
+                  <SelectItem value="/assets/images/event-space.png">Space Tech</SelectItem>
+                  <SelectItem value="/assets/images/event-quantum.png">Quantum / Physics</SelectItem>
+                  <SelectItem value="/assets/images/event-conference.png">Conference</SelectItem>
+                  <SelectItem value="/assets/images/event-data.png">Data / Analytics</SelectItem>
+                  <SelectItem value="/assets/images/event-autonomous.png">Autonomous / Vehicle</SelectItem>
+                  <SelectItem value="/assets/images/event-bioengineering.png">Bioengineering</SelectItem>
+                  <SelectItem value="/assets/images/event-alumni.png">Alumni / Social</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="flex gap-3 pt-4">
-              <Button type="submit" disabled={isSaving} className="flex-1 bg-[#2B71F8] hover:bg-[#5B9AFF] text-white rounded-lg py-6 transition-all">
+              <Button type="submit" disabled={isSaving} className="flex-1 bg-[#CDFF00] hover:bg-[#B8E600] text-[#1A1A1A] font-semibold rounded-lg py-6 transition-all">
                 {isSaving ? <><Loader2 className="mr-2 w-4 h-4 animate-spin" />Saving...</> : <><Save className="mr-2 w-4 h-4" />{editingEvent ? 'Update Event' : 'Create Event'}</>}
               </Button>
-              <Button type="button" variant="outline" onClick={() => setIsFormOpen(false)} className="border-white/20 text-white hover:bg-white/10">
+              <Button type="button" variant="outline" onClick={() => setIsFormOpen(false)} className="border-white/10 text-white/70 hover:bg-white/10 hover:text-white">
                 <X className="mr-2 w-4 h-4" /> Cancel
               </Button>
             </div>
@@ -587,7 +597,7 @@ export function AdminDashboard() {
 
       {/* Delete Confirmation Dialog */}
       <Dialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
-        <DialogContent className="max-w-md bg-[#0F2557]/95 backdrop-blur-xl border border-white/10 text-white">
+        <DialogContent className="max-w-md bg-[#1A1A1A] border border-white/10 text-white">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold text-white">Delete Event?</DialogTitle>
             <DialogDescription className="text-white/60">
@@ -598,7 +608,7 @@ export function AdminDashboard() {
             <Button onClick={confirmDelete} className="flex-1 bg-red-500 hover:bg-red-600 text-white">
               <Trash2 className="mr-2 w-4 h-4" /> Delete
             </Button>
-            <Button variant="outline" onClick={() => setIsDeleteOpen(false)} className="border-white/20 text-white hover:bg-white/10">
+            <Button variant="outline" onClick={() => setIsDeleteOpen(false)} className="border-white/10 text-white/70 hover:bg-white/10 hover:text-white">
               Cancel
             </Button>
           </div>

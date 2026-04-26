@@ -1,4 +1,4 @@
-﻿import type { Event } from '@/types';
+import type { Event } from '@/types';
 
 export interface Club {
   id: string;
@@ -20,24 +20,24 @@ export const events: Event[] = [
     time: '09:00 AM',
     venue: 'Tech Park, Kattankulathur Campus',
     category: 'technical',
-    image: '/assets/images/event-ai.jpg',
+    image: '/assets/images/event-techfest.png',
     seats: 30000,
     registered: 25000,
-    prizes: 'â‚¹15,00,000+',
+    prizes: 'Rs.15,00,000+',
     teamSize: 'Varies by event'
   },
   {
     id: 'fest-2',
     title: 'Hack Horizons 2026',
-    description: '12-hour hackathon with domains like Generative AI, Agentic AI and Cybersecurity. Organized by SRMIST Vadapalani Campus. Prize pool of â‚¹15,000+. Certificates provided to all participants.',
+    description: '12-hour hackathon with domains like Generative AI, Agentic AI and Cybersecurity. Organized by SRMIST Vadapalani Campus. Prize pool of Rs.15,000+. Certificates provided to all participants.',
     date: '2026-10-09',
     time: '09:00 AM',
     venue: 'Vadapalani Campus, Chennai',
     category: 'hackathon',
-    image: '/assets/images/event-coding.jpg',
+    image: '/assets/images/event-hackathon.png',
     seats: 500,
     registered: 423,
-    prizes: 'â‚¹15,000+',
+    prizes: 'Rs.15,000+',
     teamSize: '2-4 members'
   },
   {
@@ -48,10 +48,10 @@ export const events: Event[] = [
     time: '09:00 AM',
     venue: 'Kattankulathur Campus',
     category: 'hackathon',
-    image: '/assets/images/hackathon-featured.jpg',
+    image: '/assets/images/event-autonomous.png',
     seats: 200,
     registered: 178,
-    prizes: 'â‚¹50,000',
+    prizes: 'Rs.50,000',
     teamSize: '2-4 members'
   },
   // Workshops & Conferences 2026
@@ -63,7 +63,7 @@ export const events: Event[] = [
     time: '10:00 AM',
     venue: 'Computer Labs, Tech Block',
     category: 'technical',
-    image: '/assets/images/event-coding.jpg',
+    image: '/assets/images/event-cybersecurity.png',
     seats: 100,
     registered: 89,
     teamSize: 'Individual'
@@ -76,7 +76,7 @@ export const events: Event[] = [
     time: '02:00 PM',
     venue: 'IoT Lab, Networking Block',
     category: 'technical',
-    image: '/assets/images/event-ai.jpg',
+    image: '/assets/images/event-iot.png',
     seats: 80,
     registered: 67,
     teamSize: 'Individual'
@@ -89,7 +89,7 @@ export const events: Event[] = [
     time: '10:00 AM',
     venue: 'Seminar Hall A',
     category: 'technical',
-    image: '/assets/images/event-coding.jpg',
+    image: '/assets/images/event-data.png',
     seats: 120,
     registered: 98,
     teamSize: 'Individual'
@@ -102,7 +102,7 @@ export const events: Event[] = [
     time: '10:00 AM',
     venue: 'Cyber Lab, IT Block',
     category: 'technical',
-    image: '/assets/images/event-coding.jpg',
+    image: '/assets/images/event-cybersecurity.png',
     seats: 100,
     registered: 87,
     teamSize: 'Individual'
@@ -115,7 +115,7 @@ export const events: Event[] = [
     time: '02:00 PM',
     venue: 'SH Block, Room 301',
     category: 'technical',
-    image: '/assets/images/event-ai.jpg',
+    image: '/assets/images/event-ai-health.png',
     seats: 80,
     registered: 72,
     teamSize: 'Individual'
@@ -128,7 +128,7 @@ export const events: Event[] = [
     time: '10:00 AM',
     venue: 'Mechanical Block Lab',
     category: 'technical',
-    image: '/assets/images/event-robotics.jpg',
+    image: '/assets/images/event-autonomous.png',
     seats: 60,
     registered: 54,
     teamSize: '2-3 members'
@@ -142,7 +142,7 @@ export const events: Event[] = [
     time: '09:00 AM',
     venue: 'Tech Park, Online/Offline',
     category: 'technical',
-    image: '/assets/images/event-ai.jpg',
+    image: '/assets/images/event-ai-health.png',
     seats: 150,
     registered: 123,
     teamSize: 'Individual'
@@ -155,7 +155,7 @@ export const events: Event[] = [
     time: '10:00 AM',
     venue: 'Physics Department, Kattankulathur',
     category: 'technical',
-    image: '/assets/images/event-ai.jpg',
+    image: '/assets/images/event-quantum.png',
     seats: 100,
     registered: 78,
     teamSize: 'Individual'
@@ -168,7 +168,7 @@ export const events: Event[] = [
     time: '09:00 AM',
     venue: 'TP Ganesan Auditorium',
     category: 'technical',
-    image: '/assets/images/event-ai.jpg',
+    image: '/assets/images/event-conference.png',
     seats: 500,
     registered: 423,
     prizes: 'Best Paper Awards',
@@ -182,7 +182,7 @@ export const events: Event[] = [
     time: '09:00 AM',
     venue: 'University Building, Kattankulathur',
     category: 'technical',
-    image: '/assets/images/event-ai.jpg',
+    image: '/assets/images/event-bioengineering.png',
     seats: 300,
     registered: 256,
     prizes: 'Research Grants',
@@ -196,7 +196,7 @@ export const events: Event[] = [
     time: '09:00 AM',
     venue: 'Mechanical Block, Kattankulathur',
     category: 'technical',
-    image: '/assets/images/event-robotics.jpg',
+    image: '/assets/images/event-robotics-new.png',
     seats: 250,
     registered: 198,
     prizes: 'Best Research Awards',
@@ -211,10 +211,10 @@ export const events: Event[] = [
     time: '06:00 PM',
     venue: 'Kattankulathur Campus, Multiple Venues',
     category: 'cultural',
-    image: '/assets/images/event-cultural.jpg',
+    image: '/assets/images/event-cultural-fest.png',
     seats: 50000,
     registered: 35000,
-    prizes: 'â‚¹10,00,000+',
+    prizes: 'Rs.10,00,000+',
     teamSize: 'Varies by event'
   },
   {
@@ -225,7 +225,7 @@ export const events: Event[] = [
     time: '10:00 AM',
     venue: 'TP Ganesan Auditorium',
     category: 'cultural',
-    image: '/assets/images/event-cultural.jpg',
+    image: '/assets/images/event-alumni.png',
     seats: 2000,
     registered: 1567,
     teamSize: 'Open'
@@ -239,7 +239,7 @@ export const events: Event[] = [
     time: '06:00 AM',
     venue: 'University Grounds, Kattankulathur',
     category: 'sports',
-    image: '/assets/images/event-cultural.jpg',
+    image: '/assets/images/event-sports.png',
     seats: 3000,
     registered: 2345,
     prizes: 'Medals & Certificates',
@@ -253,7 +253,7 @@ export const events: Event[] = [
     time: '08:00 AM',
     venue: 'Indoor Stadium, Kattankulathur',
     category: 'sports',
-    image: '/assets/images/event-cultural.jpg',
+    image: '/assets/images/event-sports.png',
     seats: 500,
     registered: 423,
     prizes: 'Trophies & Certificates',
@@ -268,10 +268,10 @@ export const events: Event[] = [
     time: '10:00 AM',
     venue: 'Computer Labs, Tech Block',
     category: 'technical',
-    image: '/assets/images/event-coding.jpg',
+    image: '/assets/images/event-hackathon.png',
     seats: 300,
     registered: 245,
-    prizes: 'â‚¹75,000',
+    prizes: 'Rs.75,000',
     teamSize: 'Individual'
   },
   {
@@ -282,10 +282,10 @@ export const events: Event[] = [
     time: '09:30 AM',
     venue: 'Cyber Lab, IT Block',
     category: 'technical',
-    image: '/assets/images/event-coding.jpg',
+    image: '/assets/images/event-cybersecurity.png',
     seats: 150,
     registered: 132,
-    prizes: 'â‚¹1,00,000',
+    prizes: 'Rs.1,00,000',
     teamSize: '1-3 members'
   },
   {
@@ -296,10 +296,10 @@ export const events: Event[] = [
     time: '10:00 AM',
     venue: 'Mechanical Hangar, ECE Block',
     category: 'technical',
-    image: '/assets/images/event-robotics.jpg',
+    image: '/assets/images/event-robotics-new.png',
     seats: 80,
     registered: 67,
-    prizes: 'â‚¹1,50,000',
+    prizes: 'Rs.1,50,000',
     teamSize: '3-5 members'
   },
   {
@@ -310,10 +310,10 @@ export const events: Event[] = [
     time: '10:00 AM',
     venue: 'Mini Hall 2, University Building',
     category: 'hackathon',
-    image: '/assets/images/hackathon-featured.jpg',
+    image: '/assets/images/event-hackathon.png',
     seats: 200,
     registered: 178,
-    prizes: 'â‚¹3,00,000',
+    prizes: 'Rs.3,00,000',
     teamSize: '2-4 members'
   },
   {
@@ -324,10 +324,10 @@ export const events: Event[] = [
     time: '09:00 AM',
     venue: 'Tech Park, Kattankulathur',
     category: 'technical',
-    image: '/assets/images/event-robotics.jpg',
+    image: '/assets/images/event-space.png',
     seats: 150,
     registered: 123,
-    prizes: 'â‚¹2,00,000 + ISRO Internships',
+    prizes: 'Rs.2,00,000 + ISRO Internships',
     teamSize: '3-5 members'
   }
 ];

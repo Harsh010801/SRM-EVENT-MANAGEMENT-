@@ -34,5 +34,17 @@
     "phone": "+91 44 2741 1000",
     "role": "admin",
     "createdAt": "2026-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "0cd13a6a-b8c1-4624-9afd-eb811238397a",
+    "name": "HARSH YADAV",
+    "email": "hy4784@srmist.edu.in",
+    "password": "$2a$10$nHGrSgAycxHA67u7VDSXqONx9IGoLkK9FbMU4UAb8nkhfbEGrvuHe",
+    "regNumber": "RA2311003011546",
+    "department": "cse",
+    "year": "3",
+    "phone": "",
+    "role": "student",
+    "createdAt": "2026-04-26T11:00:56.451Z"
   }
 ]

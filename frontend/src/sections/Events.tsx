@@ -1,14 +1,16 @@
-import { useState, useMemo } from 'react';
-import { Calendar, MapPin, Users, Trophy, Clock, Search, Star } from 'lucide-react';
+import { useState, useMemo, useEffect } from 'react';
+import { Calendar, MapPin, Users, Trophy, Clock, Search, Star, ArrowUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
-import { events, clubs } from '@/data/events';
+import { events as defaultEvents, clubs } from '@/data/events';
 import type { Event } from '@/types';
 import { RegistrationForm } from '@/components/forms/RegistrationForm';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export function Events() {
+  const [eventsList, setEventsList] = useState(defaultEvents);
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedClub, setSelectedClub] = useState<string>('all');
@@ -18,9 +20,18 @@ export function Events() {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => { entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('visible'); }); },
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll('#events .scroll-animate').forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   // Filter events based on all criteria
   const filteredEvents = useMemo(() => {
-    let filtered = events;
+    let filtered = eventsList;
 
     // Status filter
     const now = new Date('2026-01-01'); // Using 2026 as reference
@@ -79,7 +90,7 @@ export function Events() {
     }
 
     return filtered;
-  }, [activeCategory, searchQuery, selectedClub, selectedDateRange, selectedStatus]);
+  }, [eventsList, activeCategory, searchQuery, selectedClub, selectedDateRange, selectedStatus]);
 
   const handleEventClick = (event: Event) => {
     setSelectedEvent(event);
@@ -93,11 +104,21 @@ export function Events() {
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case 'hackathon': return 'bg-purple-500/20 text-purple-400 border-purple-500/30';
-      case 'technical': return 'bg-blue-500/20 text-blue-400 border-blue-500/30';
-      case 'cultural': return 'bg-pink-500/20 text-pink-400 border-pink-500/30';
-      case 'sports': return 'bg-green-500/20 text-green-400 border-green-500/30';
-      default: return 'bg-gray-500/20 text-gray-400 border-gray-500/30';
+      case 'hackathon': return 'bg-purple-500/20 text-purple-300 border-purple-500/30';
+      case 'technical': return 'bg-[#CDFF00]/20 text-[#CDFF00] border-[#CDFF00]/30';
+      case 'cultural': return 'bg-pink-500/20 text-pink-300 border-pink-500/30';
+      case 'sports': return 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30';
+      default: return 'bg-white/10 text-white/70 border-white/20';
+    }
+  };
+
+  const getCategoryBgDot = (category: string) => {
+    switch (category) {
+      case 'hackathon': return 'bg-purple-400';
+      case 'technical': return 'bg-[#CDFF00]';
+      case 'cultural': return 'bg-pink-400';
+      case 'sports': return 'bg-emerald-400';
+      default: return 'bg-white/50';
     }
   };
 
@@ -111,33 +132,37 @@ export function Events() {
   };
 
   return (
-    <section id="events" className="py-20 px-4 sm:px-6 lg:px-8 bg-[#0a0a0a]">
+    <section id="events" className="py-24 px-4 sm:px-6 lg:px-8 bg-[#F5F0EB]">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            Upcoming <span className="text-gradient">Events</span>
-          </h2>
-          <p className="text-white/60 max-w-2xl mx-auto">
-            Discover exciting events happening at SRM University. From hackathons to cultural nights, 
-            there's something for everyone.
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 scroll-animate">
+          <div>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-[#1A1A1A] mb-3">
+              Our <span className="italic text-gradient">Events</span>
+            </h2>
+            <p className="text-[#1A1A1A]/50 max-w-lg text-lg">
+              Transform ideas into reality by combining creativity, strategy, and expertise.
+            </p>
+          </div>
+          <p className="text-[#1A1A1A]/40 text-sm">
+            Showing <span className="text-[#1A1A1A] font-semibold">{filteredEvents.length}</span> events
           </p>
         </div>
 
         {/* Search Bar */}
-        <div className="relative max-w-2xl mx-auto mb-8">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
+        <div className="relative max-w-2xl mb-8 scroll-animate">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#1A1A1A]/30" />
           <Input
             type="text"
             placeholder="Search events, clubs, venues..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-12 pr-4 py-6 bg-white/5 border-white/10 text-white placeholder:text-white/40 rounded-xl focus:border-[#2B71F8] focus:ring-[#2B71F8]/20"
+            className="w-full pl-12 pr-4 py-6 bg-white/80 border-[#1A1A1A]/10 text-[#1A1A1A] placeholder:text-[#1A1A1A]/30 rounded-full focus:border-[#CDFF00] focus:ring-[#CDFF00]/20 shadow-sm"
           />
         </div>
 
-        {/* Status Tabs */}
-        <div className="flex flex-wrap justify-center gap-2 mb-6">
+        {/* Status + Category Filters */}
+        <div className="flex flex-wrap gap-2 mb-6 scroll-animate">
           {[
             { id: 'upcoming', label: 'Upcoming' },
             { id: 'ongoing', label: 'Ongoing' },
@@ -149,8 +174,8 @@ export function Events() {
               onClick={() => setSelectedStatus(status.id)}
               className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${
                 selectedStatus === status.id
-                  ? 'bg-[#2B71F8] text-white shadow-lg shadow-[#2B71F8]/30'
-                  : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'
+                  ? 'bg-[#1A1A1A] text-white shadow-lg'
+                  : 'bg-white/80 text-[#1A1A1A]/60 hover:bg-white hover:text-[#1A1A1A] border border-[#1A1A1A]/10'
               }`}
             >
               {status.label}
@@ -159,149 +184,107 @@ export function Events() {
         </div>
 
         {/* Advanced Filters */}
-        <div className="flex flex-wrap justify-center gap-3 mb-8">
-          {/* Category Filter */}
-          <select
-            value={activeCategory}
-            onChange={(e) => setActiveCategory(e.target.value)}
-            className="px-4 py-2.5 rounded-full bg-white/5 text-white/70 border border-white/10 text-sm focus:outline-none focus:border-[#2B71F8]"
-          >
-            <option value="all" className="bg-[#0F2557]">All Categories</option>
-            <option value="hackathon" className="bg-[#0F2557]">Hackathons</option>
-            <option value="technical" className="bg-[#0F2557]">Technical</option>
-            <option value="cultural" className="bg-[#0F2557]">Cultural</option>
-            <option value="sports" className="bg-[#0F2557]">Sports</option>
-          </select>
+        <div className="flex flex-wrap gap-3 mb-10 scroll-animate">
+          <Select value={activeCategory} onValueChange={setActiveCategory}>
+            <SelectTrigger className="w-[160px] rounded-full bg-white/80 dark:bg-[#1A1A1A] text-[#1A1A1A]/70 dark:text-white/80 border-[#1A1A1A]/10 dark:border-white/10 h-10">
+              <SelectValue placeholder="All Categories" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Categories</SelectItem>
+              <SelectItem value="hackathon">Hackathons</SelectItem>
+              <SelectItem value="technical">Technical</SelectItem>
+              <SelectItem value="cultural">Cultural</SelectItem>
+              <SelectItem value="sports">Sports</SelectItem>
+            </SelectContent>
+          </Select>
 
-          {/* Club Filter */}
-          <select
-            value={selectedClub}
-            onChange={(e) => setSelectedClub(e.target.value)}
-            className="px-4 py-2.5 rounded-full bg-white/5 text-white/70 border border-white/10 text-sm focus:outline-none focus:border-[#2B71F8]"
-          >
-            <option value="all" className="bg-[#0F2557]">All Clubs</option>
-            {clubs.map((club) => (
-              <option key={club.id} value={club.name} className="bg-[#0F2557]">
-                {club.name}
-              </option>
-            ))}
-          </select>
+          <Select value={selectedClub} onValueChange={setSelectedClub}>
+            <SelectTrigger className="w-[180px] rounded-full bg-white/80 dark:bg-[#1A1A1A] text-[#1A1A1A]/70 dark:text-white/80 border-[#1A1A1A]/10 dark:border-white/10 h-10">
+              <SelectValue placeholder="All Clubs" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Clubs</SelectItem>
+              {clubs.map((club) => (
+                <SelectItem key={club.id} value={club.name}>{club.name}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
 
-          {/* Date Range Filter */}
-          <select
-            value={selectedDateRange}
-            onChange={(e) => setSelectedDateRange(e.target.value)}
-            className="px-4 py-2.5 rounded-full bg-white/5 text-white/70 border border-white/10 text-sm focus:outline-none focus:border-[#2B71F8]"
-          >
-            <option value="all" className="bg-[#0F2557]">Any Date</option>
-            <option value="this-week" className="bg-[#0F2557]">This Week</option>
-            <option value="this-month" className="bg-[#0F2557]">This Month</option>
-            <option value="next-month" className="bg-[#0F2557]">Next Month</option>
-          </select>
+          <Select value={selectedDateRange} onValueChange={setSelectedDateRange}>
+            <SelectTrigger className="w-[160px] rounded-full bg-white/80 dark:bg-[#1A1A1A] text-[#1A1A1A]/70 dark:text-white/80 border-[#1A1A1A]/10 dark:border-white/10 h-10">
+              <SelectValue placeholder="Any Date" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Any Date</SelectItem>
+              <SelectItem value="this-week">This Week</SelectItem>
+              <SelectItem value="this-month">This Month</SelectItem>
+              <SelectItem value="next-month">Next Month</SelectItem>
+            </SelectContent>
+          </Select>
 
-          {/* Clear Filters */}
           {(activeCategory !== 'all' || selectedClub !== 'all' || selectedDateRange !== 'all' || searchQuery) && (
-            <button
-              onClick={() => {
-                setActiveCategory('all');
-                setSelectedClub('all');
-                setSelectedDateRange('all');
-                setSearchQuery('');
-              }}
-              className="px-4 py-2.5 rounded-full bg-red-500/20 text-red-400 border border-red-500/30 text-sm hover:bg-red-500/30 transition-all"
-            >
+            <button onClick={() => { setActiveCategory('all'); setSelectedClub('all'); setSelectedDateRange('all'); setSearchQuery(''); }}
+              className="px-4 py-2.5 rounded-full bg-red-50 text-red-500 border border-red-200 text-sm hover:bg-red-100 transition-all">
               Clear Filters
             </button>
           )}
         </div>
 
-        {/* Results Count */}
-        <div className="text-center mb-8">
-          <p className="text-white/50 text-sm">
-            Showing <span className="text-white font-medium">{filteredEvents.length}</span> events
-          </p>
-        </div>
-
-        {/* Events Grid - Campus Web Style Cards */}
-        <div className="space-y-6">
-          {filteredEvents.map((event) => (
+        {/* Events Grid — Dark Bento Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {filteredEvents.map((event, index) => (
             <div
               key={event.id}
               onClick={() => handleEventClick(event)}
-              className="group relative bg-gradient-to-r from-white/5 to-transparent rounded-2xl overflow-hidden border border-white/10 hover:border-[#2B71F8]/50 transition-all duration-500 cursor-pointer"
+              className="dark-card arrow-reveal img-zoom group relative bg-[#1A1A1A] rounded-2xl overflow-hidden cursor-pointer"
+              style={{ animationDelay: `${index * 60}ms` }}
             >
-              {/* Event Image Banner */}
-              <div className="relative h-48 overflow-hidden">
-                <img
-                  src={event.image}
-                  alt={event.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/50 to-transparent" />
-                
-                {/* Category Badge */}
-                <Badge className={`absolute top-4 left-4 ${getCategoryColor(event.category)}`}>
+              {/* Event Image */}
+              <div className="relative h-44 overflow-hidden">
+                <img src={event.image} alt={event.title} className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-transparent to-transparent" />
+                <Badge className={`absolute top-3 left-3 ${getCategoryColor(event.category)}`}>
+                  <span className={`w-1.5 h-1.5 rounded-full mr-1.5 ${getCategoryBgDot(event.category)}`} />
                   {event.category.charAt(0).toUpperCase() + event.category.slice(1)}
                 </Badge>
-
-                {/* Popularity */}
-                <div className="absolute bottom-4 left-4 flex items-center gap-1 text-yellow-400">
-                  <Star className="w-4 h-4 fill-yellow-400" />
-                  <span className="text-sm font-medium">{getPopularity(event)}x</span>
+                {/* Arrow icon */}
+                <div className="arrow-icon absolute top-3 right-3 w-10 h-10 rounded-full bg-[#CDFF00] flex items-center justify-center">
+                  <ArrowUpRight className="w-5 h-5 text-[#1A1A1A]" />
                 </div>
               </div>
 
               {/* Content */}
-              <div className="p-6">
-                {/* Title & Organizer */}
-                <h3 className="text-xl font-bold text-white mb-1 group-hover:text-[#5B9AFF] transition-colors">
+              <div className="p-5">
+                <h3 className="text-lg font-bold text-white mb-1 group-hover:text-[#CDFF00] transition-colors leading-tight">
                   {event.title}
                 </h3>
-                <p className="text-white/50 text-sm mb-4">
-                  by SRM University
+                <p className="text-white/40 text-sm mb-4">
+                  {event.description.substring(0, 80)}...
                 </p>
 
-                {/* Tags */}
+                {/* Meta */}
                 <div className="flex flex-wrap gap-2 mb-4">
-                  <span className="px-3 py-1 bg-white/5 rounded-full text-xs text-white/70 border border-white/10">
-                    {event.category}
+                  <span className="flex items-center gap-1 text-white/50 text-xs">
+                    <Calendar className="w-3 h-3" /> {formatDate(event.date)}
                   </span>
-                  <span className="px-3 py-1 bg-white/5 rounded-full text-xs text-white/70 border border-white/10">
-                    {formatDate(event.date)}
-                  </span>
-                  <span className="px-3 py-1 bg-white/5 rounded-full text-xs text-white/70 border border-white/10">
-                    {event.time}
+                  <span className="flex items-center gap-1 text-white/50 text-xs">
+                    <MapPin className="w-3 h-3" /> {event.venue.split(',')[0]}
                   </span>
                 </div>
 
-                {/* Meta Info */}
-                <div className="flex flex-wrap items-center gap-4 mb-4 text-sm">
-                  <div className="flex items-center gap-1.5 text-white/50">
-                    <MapPin className="w-4 h-4" />
-                    <span>{event.venue}</span>
-                  </div>
-                  <div className="flex items-center gap-1.5 text-white/50">
-                    <Users className="w-4 h-4" />
-                    <span>{event.registered}/{event.seats} registered</span>
+                {/* Bottom bar */}
+                <div className="flex items-center justify-between pt-3 border-t border-white/10">
+                  <div className="flex items-center gap-1.5 text-white/50 text-xs">
+                    <Users className="w-3.5 h-3.5" />
+                    <span>{event.registered}/{event.seats}</span>
                   </div>
                   {event.prizes && (
-                    <div className="flex items-center gap-1.5 text-[#FF6B35]">
-                      <Trophy className="w-4 h-4" />
+                    <div className="flex items-center gap-1 text-[#CDFF00] text-xs font-semibold">
+                      <Trophy className="w-3.5 h-3.5" />
                       <span>{event.prizes}</span>
                     </div>
                   )}
                 </div>
-
-                {/* Action Button */}
-                <Button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleEventClick(event);
-                  }}
-                  className="bg-[#2B71F8] hover:bg-[#5B9AFF] text-white rounded-lg px-6 transition-all"
-                >
-                  Register
-                </Button>
               </div>
             </div>
           ))}
@@ -310,33 +293,29 @@ export function Events() {
         {/* No Results */}
         {filteredEvents.length === 0 && (
           <div className="text-center py-16">
-            <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Search className="w-8 h-8 text-white/40" />
+            <div className="w-16 h-16 bg-[#1A1A1A]/5 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Search className="w-8 h-8 text-[#1A1A1A]/30" />
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">No events found</h3>
-            <p className="text-white/60">Try adjusting your filters or search query</p>
+            <h3 className="text-xl font-bold text-[#1A1A1A] mb-2">No events found</h3>
+            <p className="text-[#1A1A1A]/50">Try adjusting your filters or search query</p>
           </div>
         )}
 
         {/* Event Details Dialog */}
         <Dialog open={isDetailsOpen} onOpenChange={setIsDetailsOpen}>
-          <DialogContent className="max-w-2xl bg-[#0F2557]/95 backdrop-blur-xl border border-white/10 text-white max-h-[90vh] overflow-y-auto">
+          <DialogContent className="max-w-2xl bg-[#1A1A1A] border border-white/10 text-white max-h-[90vh] overflow-y-auto">
             {selectedEvent && (
               <>
                 <div className="relative h-56 -mx-6 -mt-6 mb-6 overflow-hidden rounded-t-lg">
-                  <img
-                    src={selectedEvent.image}
-                    alt={selectedEvent.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0F2557] via-[#0F2557]/50 to-transparent" />
+                  <img src={selectedEvent.image} alt={selectedEvent.title} className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-[#1A1A1A]/50 to-transparent" />
                   <Badge className={`absolute top-4 left-4 ${getCategoryColor(selectedEvent.category)}`}>
                     {selectedEvent.category.charAt(0).toUpperCase() + selectedEvent.category.slice(1)}
                   </Badge>
                 </div>
                 
                 <DialogHeader>
-                  <DialogTitle className="text-2xl font-bold text-white">
+                  <DialogTitle className="text-2xl font-serif font-bold text-white">
                     {selectedEvent.title}
                   </DialogTitle>
                   <DialogDescription className="text-white/60">
@@ -345,63 +324,42 @@ export function Events() {
                 </DialogHeader>
 
                 <div className="grid grid-cols-2 gap-4 my-6">
-                  <div className="bg-white/5 rounded-lg p-4">
-                    <div className="flex items-center gap-2 text-white/50 mb-1">
-                      <Calendar className="w-4 h-4" />
-                      <span className="text-sm">Date</span>
-                    </div>
+                  <div className="bg-white/5 rounded-xl p-4">
+                    <div className="flex items-center gap-2 text-white/40 mb-1"><Calendar className="w-4 h-4" /><span className="text-sm">Date</span></div>
                     <p className="text-white font-medium">{formatDate(selectedEvent.date)}</p>
                   </div>
-                  <div className="bg-white/5 rounded-lg p-4">
-                    <div className="flex items-center gap-2 text-white/50 mb-1">
-                      <Clock className="w-4 h-4" />
-                      <span className="text-sm">Time</span>
-                    </div>
+                  <div className="bg-white/5 rounded-xl p-4">
+                    <div className="flex items-center gap-2 text-white/40 mb-1"><Clock className="w-4 h-4" /><span className="text-sm">Time</span></div>
                     <p className="text-white font-medium">{selectedEvent.time}</p>
                   </div>
-                  <div className="bg-white/5 rounded-lg p-4">
-                    <div className="flex items-center gap-2 text-white/50 mb-1">
-                      <MapPin className="w-4 h-4" />
-                      <span className="text-sm">Venue</span>
-                    </div>
+                  <div className="bg-white/5 rounded-xl p-4">
+                    <div className="flex items-center gap-2 text-white/40 mb-1"><MapPin className="w-4 h-4" /><span className="text-sm">Venue</span></div>
                     <p className="text-white font-medium">{selectedEvent.venue}</p>
                   </div>
-                  <div className="bg-white/5 rounded-lg p-4">
-                    <div className="flex items-center gap-2 text-white/50 mb-1">
-                      <Users className="w-4 h-4" />
-                      <span className="text-sm">Team Size</span>
-                    </div>
+                  <div className="bg-white/5 rounded-xl p-4">
+                    <div className="flex items-center gap-2 text-white/40 mb-1"><Users className="w-4 h-4" /><span className="text-sm">Team Size</span></div>
                     <p className="text-white font-medium">{selectedEvent.teamSize}</p>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between bg-white/5 rounded-lg p-4 mb-6">
+                <div className="flex items-center justify-between bg-white/5 rounded-xl p-4 mb-6">
                   <div>
-                    <p className="text-white/50 text-sm">Registration</p>
-                    <p className="text-white font-medium">
-                      {selectedEvent.registered} / {selectedEvent.seats} seats filled
-                    </p>
+                    <p className="text-white/40 text-sm">Registration</p>
+                    <p className="text-white font-medium">{selectedEvent.registered} / {selectedEvent.seats} seats filled</p>
                   </div>
                   {selectedEvent.prizes && (
                     <div className="text-right">
-                      <p className="text-white/50 text-sm">Prize Pool</p>
-                      <p className="text-[#FF6B35] font-bold text-lg">{selectedEvent.prizes}</p>
+                      <p className="text-white/40 text-sm">Prize Pool</p>
+                      <p className="text-[#CDFF00] font-bold text-lg">{selectedEvent.prizes}</p>
                     </div>
                   )}
                 </div>
 
                 <div className="flex gap-3">
-                  <Button
-                    onClick={handleRegisterClick}
-                    className="flex-1 bg-[#2B71F8] hover:bg-[#5B9AFF] text-white rounded-lg py-6 transition-all hover:scale-[1.02]"
-                  >
+                  <Button onClick={handleRegisterClick} className="flex-1 bg-[#CDFF00] hover:bg-[#B8E600] text-[#1A1A1A] rounded-full py-6 font-semibold transition-all hover:scale-[1.02]">
                     Register Now
                   </Button>
-                  <Button
-                    variant="outline"
-                    onClick={() => setIsDetailsOpen(false)}
-                    className="border-white/20 text-white hover:bg-white/10"
-                  >
+                  <Button onClick={() => setIsDetailsOpen(false)} className="bg-white/10 hover:bg-white/20 text-white border border-white/10 rounded-full font-medium">
                     Close
                   </Button>
                 </div>
@@ -412,9 +370,9 @@ export function Events() {
 
         {/* Registration Dialog */}
         <Dialog open={isRegisterOpen} onOpenChange={setIsRegisterOpen}>
-          <DialogContent className="max-w-lg bg-[#0F2557]/95 backdrop-blur-xl border border-white/10 text-white max-h-[90vh] overflow-y-auto">
+          <DialogContent className="max-w-lg bg-[#1A1A1A] border border-white/10 text-white max-h-[90vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle className="text-2xl font-bold text-white">
+              <DialogTitle className="text-2xl font-serif font-bold text-white">
                 Register for {selectedEvent?.title}
               </DialogTitle>
               <DialogDescription className="text-white/60">
@@ -425,7 +383,13 @@ export function Events() {
               <RegistrationForm
                 eventId={selectedEvent.id}
                 eventTitle={selectedEvent.title}
-                onSuccess={() => setIsRegisterOpen(false)}
+                onSuccess={() => {
+                  setEventsList(prev => prev.map(e => 
+                    e.id === selectedEvent.id ? { ...e, registered: e.registered + 1 } : e
+                  ));
+                  setSelectedEvent(prev => prev ? { ...prev, registered: prev.registered + 1 } : null);
+                  setIsRegisterOpen(false);
+                }}
                 onCancel={() => setIsRegisterOpen(false)}
               />
             )}

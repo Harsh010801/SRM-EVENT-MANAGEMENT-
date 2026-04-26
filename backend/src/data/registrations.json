@@ -24,5 +24,18 @@
     "eventTitle": "Hack Horizons 2026",
     "status": "confirmed",
     "registeredAt": "2026-09-01T14:20:00.000Z"
+  },
+  {
+    "id": "62d52733-5cd0-4ec6-8707-551e04e83300",
+    "name": "HARSH YADAV",
+    "email": "hy4784@srmist.edu.in",
+    "phone": "6204242582",
+    "regNumber": "RA2311003011546",
+    "department": "cse",
+    "year": "3",
+    "eventId": "fest-2",
+    "eventTitle": "Hack Horizons 2026",
+    "status": "confirmed",
+    "registeredAt": "2026-04-26T11:49:35.014Z"
   }
 ]

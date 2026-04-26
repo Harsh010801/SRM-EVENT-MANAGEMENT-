@@ -78,8 +78,8 @@ export function StudentDashboard() {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
-        <Loader2 className="w-8 h-8 text-[#2B71F8] animate-spin" />
+      <div className="min-h-screen bg-[#121212] flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-[#CDFF00] animate-spin" />
       </div>
     );
   }
@@ -92,14 +92,14 @@ export function StudentDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a]">
+    <div className="min-h-screen bg-[#121212]">
       {/* Top Bar */}
-      <header className="sticky top-0 z-50 bg-[#0F2557]/90 backdrop-blur-xl border-b border-white/10">
+      <header className="sticky top-0 z-50 bg-[#1A1A1A]/95 backdrop-blur-xl border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link to="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#2B71F8] to-[#5B9AFF] flex items-center justify-center">
-                <GraduationCap className="w-6 h-6 text-white" />
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#CDFF00] to-[#9EFF00] flex items-center justify-center">
+                <GraduationCap className="w-6 h-6 text-[#1A1A1A]" />
               </div>
             </Link>
             <div>
@@ -109,7 +109,7 @@ export function StudentDashboard() {
           </div>
           <div className="flex items-center gap-3">
             <Link to="/">
-              <Button variant="outline" size="sm" className="border-white/20 text-white hover:bg-white/10">
+              <Button variant="outline" size="sm" className="border-white/10 text-white/70 hover:bg-white/10 hover:text-white">
                 <ArrowLeft className="w-4 h-4 mr-2" /> Back to Site
               </Button>
             </Link>
@@ -124,13 +124,13 @@ export function StudentDashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Profile Card */}
           <div className="lg:col-span-1">
-            <div className="bg-white/5 rounded-2xl p-6 border border-white/10 sticky top-24">
+            <div className="bg-[#1A1A1A] rounded-2xl p-6 border border-white/5 sticky top-24">
               <div className="text-center mb-6">
-                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#2B71F8] to-[#5B9AFF] flex items-center justify-center mx-auto mb-4">
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#CDFF00] to-[#9EFF00] flex items-center justify-center mx-auto mb-4">
                   <User className="w-10 h-10 text-white" />
                 </div>
                 <h2 className="text-xl font-bold text-white">{user.name}</h2>
-                <Badge className="mt-2 bg-[#2B71F8]/20 text-[#5B9AFF] border-[#2B71F8]/30 capitalize">{user.role}</Badge>
+                <Badge className="mt-2 bg-[#CDFF00]/20 text-[#5B9AFF] border-[#2B71F8]/30 capitalize">{user.role}</Badge>
               </div>
 
               <div className="space-y-4">
@@ -158,11 +158,11 @@ export function StudentDashboard() {
 
               <div className="mt-6 pt-6 border-t border-white/10">
                 <div className="grid grid-cols-2 gap-4 text-center">
-                  <div className="bg-white/5 rounded-lg p-3">
-                    <p className="text-2xl font-bold text-[#2B71F8]">{registrations.length}</p>
+                  <div className="bg-[#1A1A1A] rounded-lg p-3">
+                    <p className="text-2xl font-bold text-[#CDFF00]">{registrations.length}</p>
                     <p className="text-white/50 text-xs">Registrations</p>
                   </div>
-                  <div className="bg-white/5 rounded-lg p-3">
+                  <div className="bg-[#1A1A1A] rounded-lg p-3">
                     <p className="text-2xl font-bold text-green-400">{registrations.filter(r => r.status === 'confirmed').length}</p>
                     <p className="text-white/50 text-xs">Confirmed</p>
                   </div>
@@ -174,18 +174,18 @@ export function StudentDashboard() {
           {/* Registrations */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-6">
-              <ClipboardList className="w-6 h-6 text-[#2B71F8]" />
+              <ClipboardList className="w-6 h-6 text-[#CDFF00]" />
               <h2 className="text-2xl font-bold text-white">My Registrations</h2>
             </div>
 
             {isLoading ? (
               <div className="flex items-center justify-center py-20">
-                <Loader2 className="w-8 h-8 text-[#2B71F8] animate-spin" />
+                <Loader2 className="w-8 h-8 text-[#CDFF00] animate-spin" />
               </div>
             ) : registrations.length > 0 ? (
               <div className="space-y-4">
                 {registrations.map(reg => (
-                  <div key={reg.id} className="bg-white/5 rounded-xl p-5 border border-white/10 hover:border-[#2B71F8]/30 transition-all">
+                  <div key={reg.id} className="bg-[#1A1A1A] rounded-xl p-5 border border-white/10 hover:border-[#2B71F8]/30 transition-all">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                       <div className="flex-1">
                         <h3 className="text-white font-semibold mb-2">{reg.eventTitle}</h3>
@@ -204,7 +204,7 @@ export function StudentDashboard() {
                         size="sm"
                         variant="outline"
                         onClick={() => handleCancelRegistration(reg)}
-                        className="border-red-500/30 text-red-400 hover:bg-red-500/10"
+                        className="border-red-500/20 text-red-400 hover:bg-red-500/20"
                       >
                         <XCircle className="w-4 h-4 mr-1" /> Cancel
                       </Button>
@@ -220,7 +220,7 @@ export function StudentDashboard() {
                 <h3 className="text-white font-semibold mb-2">No registrations yet</h3>
                 <p className="text-white/50 mb-6">You haven't registered for any events</p>
                 <Link to="/#events">
-                  <Button className="bg-[#2B71F8] hover:bg-[#5B9AFF] text-white rounded-full">
+                  <Button className="bg-[#CDFF00] hover:bg-[#B8E600] text-white rounded-full">
                     Browse Events
                   </Button>
                 </Link>
@@ -232,7 +232,7 @@ export function StudentDashboard() {
 
       {/* Cancel Dialog */}
       <Dialog open={cancelDialogOpen} onOpenChange={setCancelDialogOpen}>
-        <DialogContent className="max-w-md bg-[#0F2557]/95 backdrop-blur-xl border border-white/10 text-white">
+        <DialogContent className="max-w-md bg-[#1A1A1A] border border-white/10 text-white">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold text-white">Cancel Registration?</DialogTitle>
             <DialogDescription className="text-white/60">
@@ -244,7 +244,7 @@ export function StudentDashboard() {
               {isCancelling ? <Loader2 className="mr-2 w-4 h-4 animate-spin" /> : <XCircle className="mr-2 w-4 h-4" />}
               {isCancelling ? 'Cancelling...' : 'Cancel Registration'}
             </Button>
-            <Button variant="outline" onClick={() => setCancelDialogOpen(false)} className="border-white/20 text-white hover:bg-white/10">
+            <Button variant="outline" onClick={() => setCancelDialogOpen(false)} className="border-white/10 text-white/70 hover:bg-white/10 hover:text-white">
               Keep It
             </Button>
           </div>
